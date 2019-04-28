@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 名称空间namespace必须唯一 -->
+<mapper namespace="com.source.mybatis.mapper.UserMapper">
+
+    <!--
+        resultMap标签：映射实体与表，非主键属性标签
+        type属性:实体全路径名，可在mybatis.xml文件中统一配置
+        id属性:为实体与表的映射取一个唯一的编号
+     -->
+    <resultMap type="User" id="userMap">
+        <!--
+        id标签:映射主键属性
+        result标签：映射非主键属性
+        property属性:实体属性名
+        column属性：表的字段名
+         -->
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="name" column="name"/>
+        <result property="password" column="password"/>
+    </resultMap>
+
+
+    <insert id="add" parameterType="User">
+    insert into student(id,user_id,name,password) values(#{id},#{userId},#{name},#{password})
+    </insert>
+
+    <select id="getById" parameterType="int" resultMap="userMap">
+        select * from user_tbl where id = #{id};
+    </select>
+
+    <select id="getByName" parameterType="string" resultMap="userMap">
+        select * from user_tbl where name = #{name};
+    </select>
+</mapper>
